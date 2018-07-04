@@ -233,7 +233,11 @@ public class ExternalDependencies implements IDependency {
 			if (pomMain.getDependencyManagement().getDependencies().get(j).getGroupId().equals(dependency.getGroupId())
 					&& pomMain.getDependencyManagement().getDependencies().get(j).getArtifactId()
 							.equals(dependency.getArtifactId())) {
-				if (pomMain.getDependencyManagement().getDependencies().get(j).getVersion().startsWith("$")) {
+				if (pomMain.getDependencyManagement().getDependencies().get(j).getVersion() == null)
+	            {
+	               dependency.setVersion("");
+	            }
+            	else if (pomMain.getDependencyManagement().getDependencies().get(j).getVersion().startsWith("$")) {
 					getDependencyManagementAuxiliary(dependency, pomMain, subStringAux, j);
 				} else {
 					dependency.setVersion(pomMain.getDependencyManagement().getDependencies().get(j).getVersion());
@@ -279,7 +283,11 @@ public class ExternalDependencies implements IDependency {
 		for (int j = 0; j < modelAux.getDependencies().size(); j++) {
 			if (modelAux.getDependencies().get(j).getGroupId().equals(dependency.getGroupId())
 					&& modelAux.getDependencies().get(j).getArtifactId().equals(dependency.getArtifactId())) {
-				if (modelAux.getDependencies().get(j).getVersion().startsWith("$")) {
+				if (modelAux.getDependencies().get(j).getVersion().startsWith("$") == null)
+	            {
+	               dependency.setVersion("");
+	            }
+	            else if (modelAux.getDependencies().get(j).getVersion().startsWith("$")) {
 					getDependenciesAuxiliar(dependency, modelAux, subStringAux, j);
 				} else {
 					dependency.setVersion(modelAux.getDependencies().get(j).getVersion());
